@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
@@ -26,8 +27,12 @@
                         second_number:second_number,
                         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
                     },
+                    beforeSend: function() {
+                        $("#loader").show();
+                    },
                     success:function(data){
-                        $("#Output").html(data)
+                        $("#Output").html(data);
+                        $("#loader").hide();
                     }
                 });
             });  
@@ -60,7 +65,8 @@
         <br><br>
         <div>
             <h1>Output:</h1>
-            <p id="Output">Calculating ...</p>
+            <p id="Output"></p>
+            <img id="loader" src="{% static 'img/ajax-loader.gif' %}" style="display:none;"/>
         </div>
     </div>
     <div class="col-sm-4">
